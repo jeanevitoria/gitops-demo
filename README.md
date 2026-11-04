@@ -173,14 +173,15 @@ Digite a senha no login da interface Argo CD. Não a publique no Git nem a inclu
 ## Demonstração ao vivo
 
 1. Confirme na interface Argo CD que `gitops-demo` está `Synced` e `Healthy`, e mostre o Deployment com 2 réplicas prontas.
-2. Em outro terminal, acompanhe a mudança:
+2. Deixe abertas a interface do Argo CD e a página em [http://localhost:8081](http://localhost:8081).
+3. Em um terminal novo, comece a acompanhar o Deployment:
 
    ```bash
    kubectl get deployment gitops-demo -n gitops-demo -w
    ```
 
-3. Edite `kubernetes/deployment.yaml`, mudando `replicas: 2` para `replicas: 4`.
-4. Faça commit e push:
+4. Na pasta clonada do projeto, altere `replicas: 2` para `replicas: 4` em `kubernetes/deployment.yaml`.
+5. Publique a mudança:
 
    ```bash
    git add kubernetes/deployment.yaml
@@ -188,9 +189,9 @@ Digite a senha no login da interface Argo CD. Não a publique no Git nem a inclu
    git push origin main
    ```
 
-5. Mostre o Argo CD sincronizando e o Deployment convergindo para `4/4`. Se a atualização demorar, use `Refresh` na interface Argo CD.
+6. Mostre a interface do Argo CD identificando a nova revisão e sincronizando. Se a mudança demorar a aparecer, clique em **Refresh**. Como a sincronização automática está habilitada, não é necessário clicar em **Sync**. No terminal, as réplicas devem convergir para `4/4`.
 
-Para repetir a apresentação, restaure `replicas: 2`, faça commit e push e aguarde o Deployment voltar a `2/2`.
+Para repetir a apresentação, restaure `replicas: 2`, faça commit e push e aguarde o Deployment voltar a `2/2` antes de começar novamente.
 
 ## Encerrar e remover o cluster local
 
